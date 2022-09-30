@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="/css/style.css"> 
+        <link rel="stylesheet" href="icon/fontawesome/css/all.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    </head>
+    <body class="bg-secondary bg-opacity-25">
+        <nav class="navbar navbar-expand-lg bg-light sticky-top shadow">
+            <div class="container my-2">
+                <img src="/img/brandred.png" width="50px" href="/home">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-4">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                    </li>
+                    {{if .DataSession.IsLogin}}
+                    <li class="nav-item ms-2">
+                        <a class="nav-link" href="/add_myproject">Add Project</a>
+                    </li>
+                    {{end}}
+                    </ul>
+                    {{if .DataSession.IsLogin}}
+                        <a href="#" class="me-4 text-decoration-none text-black">Hallo, {{.DataSession.UserName}}</a>
+                        <a href="/logout" class="btn-auth me-4 text-decoration-none text-black">Logout</a>
+                    {{else}}
+                        <a href="/form_register_user" class="nav-link mx-4">Register</a>
+                        <a href="/form_login_user" class="nav-link me-4">Login</a>
+                    {{end}}
+                    <a href="/contact_me" class="btn btn-primary">Contact Me</a>
+                </div>
+            </div>
+        </nav>
+
+        {{if .DataSession.FlashData}}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{.DataSession.FlashData}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {{end}}
+        <div class="card mb-5 m-auto my-5 bg-light border-0 shadow" style="max-width: 900px;">
+            <div class="row g-0 p-4">
+                <div class="col-md-8">
+                    <div class="card-body mt-4">
+                        <h5 class="card-title">Hi welcome to my hut</h5>
+                        <p class="card-text pe-4 fs-6">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                            Impedit recusandae est ab temporibus quaerat aperiam quis 
+                            rem sint doloribus amet suscipit nobis a optio, quae accusantium 
+                            deserunt illo quibusdam quasi?
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                            Impedit recusandae est ab temporibus quaerat aperiam quis 
+                            rem sint doloribus amet suscipit nobis a optio, quae accusantium 
+                            deserunt illo quibusdam quasi?
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                            Impedit recusandae est ab temporibus quaerat aperiam quis 
+                            rem sint doloribus amet suscipit nobis a optio, quae accusantium 
+                            deserunt illo quibusdam quasi?
+                        </p>
+                        <a href="#" class="btn btn-primary rounded-pill px-4 py-0">Contact</a>
+                        <span class="mx-3">Download CV</span>
+                        <i class="fa fa-download"></i>
+                        <br>
+                        <div class="sosmed my-3">
+                            <i class="fa fa-linkedin-square"></i>
+                            <i class="fa fa-instagram mx-2"></i>
+                            <i class="fa fa-facebook-square me-2"></i>
+                            <i class="fa fa-twitter-square"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center bg-white rounded shadow-sm">
+                    <div>
+                        <img src="img/hai.jpg" class="img-fluid rounded-top" alt="Profile Picture">
+                    </div>
+                    <div class="r_dua my-2">
+                        <h4 class="mb-0">Hailee Steinfeld</h4>
+                        <p>Fullstack Developer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white bg-opacity-75">
+            <h2 class="text-center pt-5">MY PROJECT</h2>
+            <div class="p-5 d-flex flex-wrap justify-content-start mx-5">
+                {{range $index, $data := .Projects}}
+                <div class="card m-3 border-0 shadow" style="width: 350px;">
+                    <div class="card-body d-flex flex-wrap p-3">
+                        <div>
+                            <img src="/uploads/{{$data.Image}}" class="card-img-top mb-2" alt="gambar konten">
+                            <a href="/detail_project/{{$data.ID}}" class="card-title mb-0 text-black text-decoration-none fw-semibold">{{$data.NamaProject}}</a>
+                            <p class="text-secondary">{{$data.Durasi}} | {{$data.Author}}</p>
+                            <p class="card-text">{{$data.Description}}</p>
+                        </div>
+                        <div class="icon my-4">
+                            <i class='fab fa-node-js'></i>
+                            <i class='fab fa-react mx-3'></i>
+                            <i class='fab fa-node-js me-3'></i>
+                            <i class='fab fa-react'></i>
+                        </div>
+                        <div class="d-flex align-self-end w-100 my-3">
+                            <a href="/halaman_edit/{{$data.ID}}" class="btn btn-primary w-100 px-4 py-0 me-2">edit</a>
+                            <a href="/delete_project/{{$data.ID}}" class="btn btn-primary w-100 px-4 py-0">delete</a>
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    </body>
+</html>

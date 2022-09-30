@@ -1,0 +1,9 @@
+.btn-primary {
+    background-color: rgb(61, 61, 61) !important;
+    color: white !important;
+    border-color: rgb(61, 61, 61) !important;
+}
+
+.active {
+    font-weight: bold !important;
+}
